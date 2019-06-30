@@ -10,7 +10,7 @@ import shutil
 
 
 parser = argparse.ArgumentParser(
-	description='Rename wav files to be used in.')
+	description='A sequential batch file renamer.')
 parser.add_argument(
 	'--base', default=".", type=str,
 	help='The path to the directory containing the files to be renamed.')
