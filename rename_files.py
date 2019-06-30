@@ -1,3 +1,7 @@
+"""
+A sequential batch file renamer. This was designed to be used with the '2029 Radio- Pipboy Custom Radio' mod (https://www.nexusmods.com/fallout4/mods/28666) for Fallout 4.
+"""
+
 from pathlib import Path
 import argparse
 import hashlib
@@ -39,7 +43,6 @@ if __name__ == "__main__":
 	args=parser.parse_args()
 
 	base: Path = Path(args.base)
-	new_filename: str = 
 	
 	filehashes: set = set()
 	i: int = 0
@@ -71,10 +74,10 @@ if __name__ == "__main__":
 
 				i += 1
 				
-				if i > MAX: raise TooManyFiles(i)
+				if i > args.max: raise TooManyFiles(i)
 
 				try:
-					file.rename(new_filename.format())
+					file.rename(args.output_format.format())
 				except FileExistsError:
 					continue
 				else:
@@ -83,7 +86,5 @@ if __name__ == "__main__":
 	if args.fill:
 		while i < args.max:
 			i += 1
-			filecopy = base / new_filename.format()
+			filecopy = base / args.output_format.format()
 			shutil.copy(str(file), str(filecopy))
-			
-			
