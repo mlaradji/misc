@@ -1,0 +1,54 @@
+#!/bin/bash
+
+function cont {
+echo "$remote:$container --project $project"
+}
+
+case "$1" in
+	launch)
+	    lxc create $image `cont`
+	    ;;
+
+        start)
+            lxc start `cont`
+            ;;
+         
+        stop)
+            lxc stop `cont`
+            ;;
+         
+        restart)
+            lxc stop `cont`
+            lxc start `cont`
+            ;;
+
+	config)
+	    case "$2" in
+            	"")
+            	  lxc config show `cont`
+		  ;;
+
+	    esac
+	    ;;
+
+        root)
+	    case "$2" in
+		"")
+            	  lxc exec `cont` -- bash
+                  ;;
+
+		*)
+		  lxc exec `cont` -- "$2"
+	    esac
+	    ;;
+
+        "")
+            lxc exec `cont` -- su $user -l
+            ;;
+
+        *)
+            lxc exec `cont` -- su $user -l -c ""$@""
+            exit 0
+            ;;
+
+esac

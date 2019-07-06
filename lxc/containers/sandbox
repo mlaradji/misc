@@ -1,0 +1,14 @@
+#!/bin/bash
+
+# LXD container information.
+remote=local
+project=default
+container=sandbox
+user=ubuntu
+
+# LXD creation info.
+image=ubuntu:18.04
+
+# Import LXD functions.
+source ~/.scripts/lxc/functions
+
